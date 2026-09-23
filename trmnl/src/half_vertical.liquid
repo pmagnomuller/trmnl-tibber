@@ -1,0 +1,35 @@
+<div class="layout layout--col gap--medium">
+  <div class="col">
+    <span class="label">{{ area_label }} · {{ current.slot_label }}</span>
+    <span class="value value--xlarge" data-fit-value="true">{{ current.price_label }}</span>
+    <span class="description">{{ currency }}/kWh all-in</span>
+  </div>
+
+  {% if cheapest_next %}
+  <div class="col">
+    <span class="label">Cheap 1h</span>
+    <span class="value value--small">{{ cheapest_next.label }}</span>
+    <span class="description">{{ cheapest_next.avg_eur_kwh }} {{ currency }}/kWh</span>
+  </div>
+  {% endif %}
+
+  <div class="grid grid--cols-3">
+    <div class="col">
+      <span class="label">Min</span>
+      <span class="value value--xsmall">{{ today_min_label }}</span>
+    </div>
+    <div class="col">
+      <span class="label">Avg</span>
+      <span class="value value--xsmall">{{ today_avg_label }}</span>
+    </div>
+    <div class="col">
+      <span class="label">Max</span>
+      <span class="value value--xsmall">{{ today_max_label }}</span>
+    </div>
+  </div>
+</div>
+
+<div class="title_bar">
+  <span class="title">Tibber</span>
+  <span class="instance">{{ updated_label }}</span>
+</div>

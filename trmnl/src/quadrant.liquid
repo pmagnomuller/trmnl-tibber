@@ -1,0 +1,13 @@
+<div class="layout layout--col gap--small">
+  <span class="label">{{ current.slot_label }}</span>
+  <span class="value value--large" data-fit-value="true">{{ current.price_label }}</span>
+  <span class="description">{{ currency }}/kWh</span>
+  {% if cheapest_next %}
+    <span class="label">Cheap {{ cheapest_next.label }}</span>
+  {% endif %}
+</div>
+
+<div class="title_bar">
+  <span class="title">Tibber</span>
+  <span class="instance">{{ updated_label }}</span>
+</div>

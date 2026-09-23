@@ -1,0 +1,66 @@
+<div class="layout layout--col gap--large">
+  <div class="grid grid--cols-2">
+    <div class="col col--span-1">
+      <span class="label">Now {{ current.slot_label }}</span>
+      <span class="value value--xxlarge" data-fit-value="true">{{ current.price_label }}</span>
+      <span class="description">{{ currency }}/kWh · {{ area_label }}</span>
+    </div>
+    <div class="col col--span-1">
+      <span class="label">Cheapest next 1h</span>
+      {% if cheapest_next %}
+        <span class="value value--large">{{ cheapest_next.label }}</span>
+        <span class="description">avg {{ cheapest_next.avg_eur_kwh }} {{ currency }}/kWh</span>
+      {% else %}
+        <span class="value value--large">—</span>
+        <span class="description">No upcoming window</span>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="grid grid--cols-3">
+    <div class="col">
+      <span class="label">Today min</span>
+      <span class="value value--small">{{ today_min_label }}</span>
+    </div>
+    <div class="col">
+      <span class="label">Today avg</span>
+      <span class="value value--small">{{ today_avg_label }}</span>
+    </div>
+    <div class="col">
+      <span class="label">Today max</span>
+      <span class="value value--small">{{ today_max_label }}</span>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="grid grid--cols-{{ upcoming.count }} gap--xsmall">
+    {% for h in upcoming.bars %}
+      <div class="col col--center" style="height: 64px; display: flex; align-items: flex-end; justify-content: center;">
+        <div style="width: 70%; height: {{ h | times: 10 }}%; min-height: 2px; background: #000;"></div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <div class="grid grid--cols-4">
+    {% assign step = upcoming.count | divided_by: 4 %}
+    {% if step < 1 %}{% assign step = 1 %}{% endif %}
+    {% for label in upcoming.t %}
+      {% assign idx = forloop.index0 %}
+      {% assign mod = idx | modulo: step %}
+      {% if mod == 0 %}
+        <div class="col">
+          <span class="label label--small">{{ label }}</span>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+
+<div class="title_bar">
+  <span class="title">Tibber</span>
+  <span class="instance">
+    updated {{ updated_label }}
+    {% if tomorrow_ready %}· tomorrow ready{% else %}· tomorrow pending{% endif %}
+  </span>
+</div>
